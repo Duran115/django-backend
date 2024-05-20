@@ -37,7 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuario',
+    'usuario', #APP usuario
+    # 'cursos',
+    # 'asesorias',
+    # 'examenes',
+    # 'tickets',
+    # 'notificaciones',
+    # 'configuracion',
+    # 'chat',
+    # 'puntuacion',
 ]
 
 MIDDLEWARE = [
@@ -77,11 +85,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'nombre_de_tu_bd',
+        'NAME': 'PostgreSQL 16',
         'USER': 'tu_usuario',
         'PASSWORD': 'tu_contraseña',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
