@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CalificacionesConfig(AppConfig):
+class CalificacionConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'calificaciones'
+    name = 'calificacion'
