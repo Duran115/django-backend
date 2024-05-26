@@ -10,10 +10,10 @@ class Profesor(Usuario):
         from curso.models import Curso
         return list(Curso.objects.filter(profesor=self))
     
-    @property
-    def puntuacion(self):
-        avg_puntuacion = self.calificaciones.aggregate(Avg('puntaje'))['puntaje__avg']
-        return avg_puntuacion if avg_puntuacion is not None else 0
+    def mostrar_puntuacion(self):
+        from calificacion.models import Calificacion
+        promedio = Calificacion.objects.filter(profesor=self).aggregate(Avg('puntaje'))['puntaje__avg']
+        return promedio if promedio is not None else 0
     
     def crear_curso(self, nombre, descripcion):
         from curso.factories import CursoConcreteFactory
@@ -24,7 +24,8 @@ class Profesor(Usuario):
     def crear_horario(self, curso, dia, hora_inicio, hora_fin):
         from horario.factories import HorarioConcreteFactory
         factory = HorarioConcreteFactory()
-        return factory.crear_horario(curso, dia, hora_inicio, hora_fin)
+        horario = factory.crear_horario(curso, dia, hora_inicio, hora_fin)
+        return horario
     
     def __str__(self):
         return f'{self.nombre} {self.apellidos}'
