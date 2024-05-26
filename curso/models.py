@@ -2,7 +2,7 @@ from django.db import models
 from profesor.models import Profesor
 
 class Curso(models.Model):
-    nombre = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, related_name='cursos')
     

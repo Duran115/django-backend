@@ -4,8 +4,8 @@ from usuario.models import Usuario
 class Estudiante(Usuario):
     universidad = models.CharField(max_length=100)
     carrera = models.CharField(max_length=100)
-    ciclo = models.CharField(max_length=10)
-    codigo = models.CharField(max_length=10, unique=True)
+    ciclo = models.PositiveIntegerField(blank=False, null=False, choices=[(i, i) for i in range(1, 11)])
+    codigo = models.CharField(max_length=8, unique=True)
     
     def cursos_matriculados(self):
         from matricula.models import Matricula
