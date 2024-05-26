@@ -12,8 +12,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     queryset = Usuario.objects.all()
 
-def home(request):
-    return render(request, 'home.html')
+def inicio(request):
+    return render(request, 'inicio.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -46,7 +46,7 @@ def signin(request):
         user = authenticate(request, correo=request.POST['email'], password=request.POST['password'])
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('inicio')
         else:
             return render(request, 'signin.html', {
                 'form': AuthenticationForm(), 
@@ -58,4 +58,4 @@ def signin(request):
 @login_required
 def signout(request):
     logout(request)
-    return redirect('home')
+    return redirect('inicio')
