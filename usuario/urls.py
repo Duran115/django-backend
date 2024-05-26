@@ -7,8 +7,8 @@ router = routers.DefaultRouter()
 router.register(r'usuarios', views.UsuarioViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('login/', views.login, name='login'),
+    path('signin/', views.signin, name='signin'),
     path('api/v1/', include(router.urls)),
 ]
