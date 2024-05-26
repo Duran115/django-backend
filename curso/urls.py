@@ -4,7 +4,7 @@ from . import views
 
 # Versionado de la API
 router = routers.DefaultRouter()
-router.register(r'estudiantes', views.EstudianteViewSet)
+router.register(r'cursos', views.CursoViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),

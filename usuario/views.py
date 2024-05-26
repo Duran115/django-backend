@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+from .serializer import UsuarioSerializer
+from .models import Usuario
 
-# Create your views here.
-def estudiante(request):
-    return HttpResponse('Estudiante')
-
-def profesor(request):
-    return HttpResponse('Profesor')
+class UsuarioViewSet(viewsets.ModelViewSet):
+    serializer_class = UsuarioSerializer
+    queryset = Usuario.objects.all()
