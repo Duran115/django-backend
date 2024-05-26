@@ -7,6 +7,10 @@ class Estudiante(Usuario):
     ciclo = models.CharField(max_length=10)
     codigo = models.CharField(max_length=10, unique=True)
     
+    def cursos_matriculados(self):
+        from matricula.models import Matricula
+        return [matricula.curso for matricula in Matricula.objects.filter(estudiante=self)]
+    
     def matricularse(self, curso):
         from matricula.models import Matricula
         if not Matricula.objects.filter(estudiante=self, curso=curso).exists():
