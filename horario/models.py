@@ -8,4 +8,4 @@ class Horario(models.Model):
     hora_fin = models.TimeField()
     
     def __str__(self):
-        return f'{self.curso.nombre} - {self.dia} {self.hora_inicio}-{self.hora_fin}'
+        return f'{self.dia} {self.hora_inicio}-{self.hora_fin}'

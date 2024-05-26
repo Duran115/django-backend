@@ -10,5 +10,9 @@ class Curso(models.Model):
         from matricula.models import Matricula
         return [matricula.estudiante for matricula in Matricula.objects.filter(curso=self)]
     
+    def mostrar_horarios(self):
+        from horario.models import Horario
+        return [horario for horario in Horario.objects.filter(curso=self)]
+    
     def __str__(self):
         return self.nombre

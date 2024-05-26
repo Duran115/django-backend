@@ -8,7 +8,7 @@ class Profesor(Usuario):
     
     def cursos_creados(self):
         from curso.models import Curso
-        return [curso for curso in Curso.objects.filter(profesor=self)]
+        return list(Curso.objects.filter(profesor=self))
     
     @property
     def puntuacion(self):
