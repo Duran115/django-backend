@@ -1,12 +1,48 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
-    <h1>Registrarse como Estudiante</h1>
-    <p>{{error}}</p>
-    <form action="/signup/estudiante/" method="POST">
-        {% csrf_token %} {{form.as_p}}
-        <button class="btn btn-primary">Registrarse</button>
+<main class="container py-5">
+    <h1 class="display-4 text-center">Registrarse como: Estudiante</h1>
+    <form method="POST" action="/signup/estudiante/" class="card card-body col-md-4 offset-md-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="text" name="correo" id="correo" class="form-control" placeholder="Ingresar correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">Contraseña:</label>
+            <input type="password" name="password1" id="password1" class="form-control" placeholder="Ingresar contraseña" required>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirmar Contraseña:</label>
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirmar contraseña" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresar nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos:</label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Ingresar apellidos" required>
+        </div>
+        <div class="mb-3">
+            <label for="universidad" class="form-label">Universidad:</label>
+            <input type="text" name="universidad" id="universidad" class="form-control" placeholder="Ingresar universidad" required>
+        </div>
+        <div class="mb-3">
+            <label for="carrera" class="form-label">Carrera:</label>
+            <input type="text" name="carrera" id="carrera" class="form-control" placeholder="Ingresar carrera" required>
+        </div>
+        <div class="mb-3">
+            <label for="ciclo" class="form-label">Ciclo:</label>
+            <input type="text" name="ciclo" id="ciclo" class="form-control" placeholder="Ingresar ciclo">
+        </div>
+        <div class="text-center py-3">
+            <button class="btn btn-dark px-4 py-2">Registrarse</button>
+        </div>
     </form>
-</div>
+    {% if error %}
+    <p class="display-5 text-center mt-3" style="color:red">{{ error }}</p>
+    {% endif %}
+</main>
 
 {% endblock %}

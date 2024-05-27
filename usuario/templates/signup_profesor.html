@@ -1,12 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
-    <h1>Registrarse como Profesor</h1>
-    <p>{{error}}</p>
-    <form action="/signup/profesor/" method="POST">
-        {% csrf_token %} {{form.as_p}}
-        <button class="btn btn-primary">Registrarse</button>
+<main class="container py-5">
+    <h1 class="display-4 text-center">Registrarse como: Profesor</h1>
+    <form method="POST" action="/signup/profesor/" class="card card-body col-md-4 offset-md-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="text" name="correo" id="correo" class="form-control" placeholder="Ingresar correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">Contraseña:</label>
+            <input type="password" name="password1" id="password1" class="form-control" placeholder="Ingresar contraseña" required>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirmar Contraseña:</label>
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirmar contraseña" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresar nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos:</label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Ingresar apellidos" required>
+        </div>
+        <div class="mb-3">
+            <label for="profesion" class="form-label">Profesión:</label>
+            <input type="text" name="profesion" id="profesion" class="form-control" placeholder="Ingresar profesion" required>
+        </div>
+        <div class="mb-3">
+            <label for="centro_laboral" class="form-label">Centro Laboral:</label>
+            <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" placeholder="Ingresar centro_laboral" required>
+        </div>
     </form>
-</div>
+    {% if error %}
+    <p class="display-5 text-center mt-3" style="color:red">{{ error }}</p>
+    {% endif %}
+</main>
 
 {% endblock %}

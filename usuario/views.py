@@ -16,7 +16,7 @@ def inicio(request):
     return render(request, 'inicio.html')
 
 def signup(request):
-    return render(request, 'signup.html', {'form': UserCreationForm})
+    return render(request, 'signup.html')
 
 def signup_estudiante(request):
     if request.method == 'POST':
@@ -28,12 +28,14 @@ def signup_estudiante(request):
                     })
             from ..estudiante.models import Estudiante
             estudiante = Estudiante.objects.create(
-                email=request.POST['email'], 
+                correo=request.POST['email'], 
                 password=request.POST['password1'],
                 nombre=request.POST['first_name'],
                 apellidos=request.POST['last_name'],
-                profesion = request.POST['profesion'],
-                centro_laboral = request.POST['centro_laboral'],
+                universidad = request.POST['universidad'],
+                carrrera = request.POST['carrrera'],
+                ciclo = request.POST['ciclo'],
+                codigo = request.POST['codigo'],
                 )
             estudiante.save()
             login(request, estudiante)
@@ -55,7 +57,7 @@ def signup_profesor(request):
                     })
             from ..profesor.models import Profesor
             profesor = Profesor.objects.create(
-                email=request.POST['email'], 
+                correo=request.POST['email'], 
                 password=request.POST['password1'],
                 nombre=request.POST['first_name'],
                 apellidos=request.POST['last_name'],
@@ -74,17 +76,32 @@ def signup_profesor(request):
 
 def signin(request):
     if request.method == 'POST':
-        user = authenticate(request, correo=request.POST['email'], password=request.POST['password'])
-        if user is not None:
-            login(request, user)
-            return redirect('inicio')
-        else:
-            return render(request, 'signin.html', {
-                'form': AuthenticationForm(), 
-                'error': 'Correo o contraseña incorrectos.'
-            })
-    else:
-        return render(request, 'signin.html', {'form': AuthenticationForm()})
+        correo = request.POST['correo']
+        password = request.POST['password']
+        
+        from estudiante.models import Estudiante
+        from profesor.models import Profesor
+        # Verificar si el correo pertenece a un Estudiante
+        try:
+            estudiante = Estudiante.objects.get(correo=correo)
+            user = authenticate(request, correo=correo, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('inicio')
+        except Estudiante.DoesNotExist:
+            pass
+        # Verificar si el correo pertenece a un Profesor
+        try:
+            profesor = Profesor.objects.get(correo=correo)
+            user = authenticate(request, correo=correo, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('inicio')
+        except Profesor.DoesNotExist:
+            pass
+        return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Correo o contraseña incorrectos.'})
+    return render(request, 'signin.html', {'form': AuthenticationForm})
+
 
 @login_required
 def signout(request):
