@@ -16,30 +16,61 @@ def inicio(request):
     return render(request, 'inicio.html')
 
 def signup(request):
+    return render(request, 'signup.html', {'form': UserCreationForm})
+
+def signup_estudiante(request):
     if request.method == 'POST':
         try:
             if request.POST['password1'] != request.POST['password2']:
-                return render(request, 'signup.html', {
+                return render(request, 'signup_estudiante.html', {
                     'form': UserCreationForm, 
                     'error': 'Las contraseñas no coinciden.'
                     })
-            user = Usuario.objects.create(
+            from ..estudiante.models import Estudiante
+            estudiante = Estudiante.objects.create(
                 email=request.POST['email'], 
                 password=request.POST['password1'],
                 nombre=request.POST['first_name'],
                 apellidos=request.POST['last_name'],
+                profesion = request.POST['profesion'],
+                centro_laboral = request.POST['centro_laboral'],
                 )
-            user.save()
-            login(request, user)
+            estudiante.save()
+            login(request, estudiante)
         except IntegrityError:
-            return render(request, 'signup.html', {
+            return render(request, 'signup_estudiante.html', {
                 'form': UserCreationForm, 
                 'error': 'El email ya está registrado.',
                 })
     else:
-        return render(request, 'signup.html', {
-            'form': UserCreationForm
-            })
+        return render(request, 'signup_estudiante.html', {'form': UserCreationForm})
+
+def signup_profesor(request):
+    if request.method == 'POST':
+        try:
+            if request.POST['password1'] != request.POST['password2']:
+                return render(request, 'signup_profesor.html', {
+                    'form': UserCreationForm, 
+                    'error': 'Las contraseñas no coinciden.'
+                    })
+            from ..profesor.models import Profesor
+            profesor = Profesor.objects.create(
+                email=request.POST['email'], 
+                password=request.POST['password1'],
+                nombre=request.POST['first_name'],
+                apellidos=request.POST['last_name'],
+                profesion = request.POST['profesion'],
+                centro_laboral = request.POST['centro_laboral'],
+                )
+            profesor.save()
+            login(request, profesor)
+        except IntegrityError:
+            return render(request, 'signup_profesor.html', {
+                'form': UserCreationForm, 
+                'error': 'El email ya está registrado.',
+                })
+    else:
+        return render(request, 'signup_profesor.html', {'form': UserCreationForm})
 
 def signin(request):
     if request.method == 'POST':
